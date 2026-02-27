@@ -34,13 +34,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com
-          scope: "@backendworks"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Generate Prisma client
         run: npx prisma generate
@@ -79,6 +75,13 @@ jobs:
           git push origin HEAD --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node for publish
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+          scope: "@backendworks"
 
       - name: Publish to GitHub Packages
         run: npm publish
