@@ -27,7 +27,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Node
@@ -78,7 +78,7 @@ jobs:
           git tag "@backendworks/post-db@${{ steps.version.outputs.version }}"
           git push origin HEAD --follow-tags
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to GitHub Packages
         run: npm publish
@@ -91,4 +91,4 @@ jobs:
           tag_name: "@backendworks/post-db@${{ steps.version.outputs.version }}"
           name: "@backendworks/post-db v${{ steps.version.outputs.version }}"
           generate_release_notes: true
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
